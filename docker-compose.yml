@@ -1,0 +1,33 @@
+version: "3.8"
+name: chat_engine
+services:
+  vllm:
+    image: vllm/vllm-openai:v0.10.0 # v0.10.0 for smaller size
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all          # or change to 1, or list device_ids
+              capabilities: [gpu]
+              options:
+                runtime: nvidia
+    ports:
+      - "${VLLM_PORT:-8100}:8000"
+    volumes:
+      - vllm-cache:/root/.cache/huggingface/hub
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - DISABLE_UVICORN_PROPAGATION=true
+      - VLLM_USE_V1=1
+    command: >
+      --model ${MODEL_NAME:-Qwen/Qwen3-4B}
+      --max-model-len ${MAX_MODEL_LEN:-4096}
+      --max-num-seqs ${NUM_SEQS:-128}
+      --max-num-batched-tokens ${BATCHED_TOKENS:-4096}
+      --api-key ${SERVING_API_KEY:-token}
+      --gpu-memory-utilization ${GPU_MEM_UTIL:-0.8}
+
+volumes:
+  vllm-cache:
+    driver: local
