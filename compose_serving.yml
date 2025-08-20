@@ -2,7 +2,7 @@ version: "3.8"
 name: chat_engine
 services:
   vllm:
-    image: vllm/vllm-openai:v0.10.0 # v0.10.0 for smaller size
+    image: vllm/vllm-openai:v0.10.0
     deploy:
       resources:
         reservations:
@@ -27,7 +27,6 @@ services:
       --max-num-batched-tokens ${BATCHED_TOKENS:-4096}
       --api-key ${SERVING_API_KEY:-token}
       --gpu-memory-utilization ${GPU_MEM_UTIL:-0.8}
-
 volumes:
   vllm-cache:
     driver: local
