@@ -1,0 +1,30 @@
+version: "3.8"
+name: chat_engine
+services:
+  sglang:
+    image: lmsysorg/sglang:v0.5.1.post3-cu126
+    container_name: sglang
+    restart: unless-stopped
+    ports:
+      - "${SGLANG_PORT:-30000}:30000"
+    volumes:
+      - sglang_models:/root/.cache/huggingface
+    environment:
+      CUDA_VISIBLE_DEVICES: "${CUDA_VISIBLE_DEVICES:-0}"
+    entrypoint: python3 -m sglang.launch_server
+    command:
+      - "--model-path"
+      - "${MODEL_NAME:-Qwen/Qwen3-4B-AWQ}"
+      - "--host"
+      - "0.0.0.0"
+      - "--port"
+      - "${SGLANG_PORT:-30000}"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [ gpu ]
+volumes:
+  sglang_models:

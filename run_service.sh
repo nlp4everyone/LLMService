@@ -1,0 +1,1 @@
+sudo docker compose -f compose_serving.yml up -d
