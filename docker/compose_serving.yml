@@ -1,8 +1,7 @@
-version: "3.8"
-name: chat_engine
+name: llm_engine
 services:
   sglang:
-    image: lmsysorg/sglang:v0.5.1.post3-cu126
+    image: lmsysorg/sglang:v0.5.13
     container_name: sglang
     restart: unless-stopped
     ports:

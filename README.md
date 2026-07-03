@@ -38,15 +38,15 @@ CUDA_VISIBLE_DEVICES=0
 1. **Clone the repository**
    ```bash
    # Clone the main repository
-   git clone -b engine/sglang https://github.com/nlp4everyone/PrivateAI.git
+   git clone -b engine/sglang https://github.com/nlp4everyone/LLMService.git
    # Navigate to project directory
-   cd PrivateAI
+   cd LLMService
    ```
 
 2. **Build and start the services**
    ```bash
    # Start all services in detached mode
-   bash run_service.sh
+   make up
    ```
 
 3. **Verify the service is running**
