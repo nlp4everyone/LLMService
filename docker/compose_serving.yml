@@ -1,8 +1,7 @@
-version: "3.8"
-name: chat_engine
+name: llm_engine
 services:
   vllm:
-    image: vllm/vllm-openai:v0.10.0
+    image: vllm/vllm-openai:v0.24.0
     deploy:
       resources:
         reservations:
@@ -12,6 +11,13 @@ services:
               capabilities: [gpu]
               options:
                 runtime: nvidia
+    depends_on:
+      prometheus:
+        condition: service_healthy
+      grafana:
+        condition: service_healthy
+      dcgm-exporter:
+        condition: service_healthy
     ports:
       - "${VLLM_PORT:-8100}:8000"
     volumes:

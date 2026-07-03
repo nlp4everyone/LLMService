@@ -1,1 +1,0 @@
-sudo docker compose -f compose_monitoring.yml -f compose_serving.yml up -d

@@ -45,15 +45,15 @@ This project provides a production-ready setup for serving Large Language Models
 # ⚙️ Installation
 1. Clone the repository:
 ```
-git clone -b engine/vllm https://github.com/nlp4everyone/PrivateAI.git
+git clone -b engine/vllm https://github.com/nlp4everyone/LLMService.git
 ```
 ```
-cd PrivateAI
+cd LLMService
 ```
 
 2. Start Services with Docker Compose:
 ```
-bash run_service.sh
+make up
 ```
 
 3. Access Dashboards
